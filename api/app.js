@@ -22,15 +22,18 @@ const emailASerEnviado = {
     text: 'Abdala'
 };
 
-remetente.sendMail(emailASerEnviado, function(error){
- if (error) {
-    console.log(error);
- } else {
-    console.log('Email enviado com sucesso.');
- }});
 
-
-
+ queue.consume("fila1", message => {
+    //process the message
+    console.log("processing " + message.content.toString());
+    remetente.sendMail(emailASerEnviado, function(error){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email enviado com sucesso.');
+        }
+    });
+});
 
 
 app.use(express.json());
@@ -42,6 +45,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     items.push(req.body);
     res.send('Drone Adicionado com Sucesso!');
+    queue.sendToQueue("fila1", req.body);
 });
 app.listen(3000, () => {
     console.log('Controle de Drones');
