@@ -14,7 +14,7 @@ app.post('/', (req, res) => {
     items.push(req.body);
     res.send('Drone Adicionado com Sucesso!');
 });
-app.put('/:id', (req, res))
+
 app.listen(port, () => {
     console.log('Controle de Drones');
 });
