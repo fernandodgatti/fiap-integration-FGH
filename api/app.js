@@ -26,14 +26,21 @@ const emailASerEnviado = {
 
  queue.consume("fila1", message => {
     //process the message
+    const json = JSON.parse(message.content.toString());
     console.log("processing " + message.content.toString());
-    remetente.sendMail(emailASerEnviado, function(error){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email enviado com sucesso.');
-        }
-    });
+    console.log("Temperatura " + json.temperatura);
+    console.log("umidade " + json.umidade);    
+    if (json.temperatura <= 0 || json.temperatura >= 35 || json.umidade <= 15) {
+        setTimeout(() => {
+            remetente.sendMail(emailASerEnviado, function(error){
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email enviado com sucesso.');
+                }
+            });
+        }, 60000);        
+    }
 });
 
 
