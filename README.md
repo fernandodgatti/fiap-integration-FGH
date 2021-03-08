@@ -31,12 +31,20 @@ const remetente = nodemailer.createTransport({
 });
 ```
 ```javascript
-    const emailASerEnviado = {
-        from: 'fefohenriller@gmail.com', // Emissor configurado anteriormente
-        to: 'fefohenriller@gmail.com',   // Receptor
-        suject: '',                      // Assunto
-        text: '',                        // Mensagem a ser enviada
-    }
+const emailASerEnviado = {
+    from: 'fefohenriller@gmail.com', // Emissor configurado anteriormente
+    to: 'fefohenriller@gmail.com',   // Receptor
+    suject: '',                      // Assunto
+    text: '',                        // Mensagem a ser enviada
+}
+```
+
+Configure o **HOST** da mensageria no arquivo **api/queue.js**
+```javascript
+function connect(){
+  return require('amqplib').connect("amqp://localhost")
+                           .then(conn => conn.createChannel());
+}
 ```
 
 ## Executar o projeto
