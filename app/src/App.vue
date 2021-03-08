@@ -27,9 +27,7 @@
                 label="Latitude"
                 required
               ></v-text-field>
-              {{ latitude }}
             </v-col>
-            {{ latitude }}
             <v-col cols="12" md="6">
               <v-text-field
                 v-model="longitude"
@@ -62,19 +60,15 @@
           :items-per-page="15"
           class="elevation-1"
         ></v-data-table>
-        <google-map />
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import GoogleMap from "./components/GoogleMap";
 export default {
   name: "App",
-  components: {
-    GoogleMap,
-  },
+  components: {},
   methods: {
     getDrone() {
       const rOpt = {
@@ -135,11 +129,6 @@ export default {
           this.rastreamento = true;
         })
         .catch((error) => console.log("error", error));
-    },
-    changePositionDrone() {
-      setInterval(() => {
-        console.log("Change Position");
-      }, 6000);
     },
   },
   mounted() {
