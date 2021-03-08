@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const mail =  require('./mail.js');
 
 const port = 3000;
 let items = [];
@@ -18,3 +19,10 @@ app.post('/', (req, res) => {
 app.listen(port, () => {
     console.log('Controle de Drones');
 });
+
+mail.remetente.sendMail(emailASerEnviado, function(error){
+ if (error) {
+    console.log(error);
+  } else {
+    console.log('Email enviado com sucesso.');
+  }});
