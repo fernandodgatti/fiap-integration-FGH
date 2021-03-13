@@ -3,8 +3,8 @@
 Controle simples de drone, feito com Vue.JS como base para o front-end, Node.js usado para desenvolvimento do micro-serviço e o RabbitMQ como sistema de mensageria.
 
 ## Instalação
-
-Instale o [Node.js](https://nodejs.org/en/), todas as dependências do projetos são baixados via NPM.
+ * É Necessário ter o RabbitMQ instalado em seu computador, segue o [link](https://www.rabbitmq.com/download.html) de referência
+ * Instale o [Node.js](https://nodejs.org/en/), todas as dependências do projetos são baixados via NPM.
 
 
 Abra a pasta **app** no terminal e execute o seguinte comando para baixar as dependências do front-end:
