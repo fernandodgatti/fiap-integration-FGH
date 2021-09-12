@@ -3,9 +3,14 @@ services:
   rabbitmq1:
     image: rabbitmq:3-management
     container_name: rabbitmq
-    hostname: rabbitmq1
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     ports:
-      - "8080:15672"
+      - 5672:5672    #amqp
+      - 15672:15672  #http
     network: 
       - drones-network
     volumes:
@@ -28,14 +33,14 @@ backend:
     - 8081:8081
   network: 
     - drones-network
-  environment:
-    MAIL_HOST:
-    MAIL_SERVICE:
-    MAIL_PORT: 
-    MAIL_AUTH_LOGIN:
-    MAIL_AUTH_PASSWORD:
-    API_PORT:
-    MAIL_CONSUMER:
+  environment: 
+    MAIL_HOST: smtp.gmail.com
+    MAIL_SERVICE: smtp.gmail.com
+    MAIL_PORT: 587
+    MAIL_AUTH_LOGIN: fefohenriller@gmail.com
+    MAIL_AUTH_PASSWORD: fiap2021
+    API_PORT: 8081
+    MAIL_CONSUMER: fernandodgatti@gmail.com
     AMQP_HOST: 
 networks:
   drones-network:
