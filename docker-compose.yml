@@ -20,7 +20,7 @@ frontend:
   network: 
     - drones-network
   environment:
-    VUE_APP_API_URL: 
+    VUE_APP_API_URL: https://ec2-3-238-132-160.compute-1.amazonaws.com
 backend:
   image: hmabdala/frontendvuejsdrones:lastest
   deploy: 
@@ -37,7 +37,7 @@ backend:
     MAIL_AUTH_PASSWORD: fiap2021
     API_PORT: 8081
     MAIL_CONSUMER: fernandodgatti@gmail.com
-    AMQP_HOST: 
+    AMQP_HOST: https://ec2-3-238-132-160.compute-1.amazonaws.com
 networks:
   drones-network:
     driver: overlay
