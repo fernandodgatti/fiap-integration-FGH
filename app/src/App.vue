@@ -59,7 +59,28 @@
           :items="drones"
           :items-per-page="15"
           class="elevation-1"
-        ></v-data-table>
+        >
+          <template v-slot:item="row">
+            <tr>
+              <td>{{ row.item.droneId }}</td>
+              <td>{{ row.item.rastreamento }}</td>
+              <td>{{ row.item.latitude }}</td>
+              <td>{{ row.item.longitude }}</td>
+              <td>{{ row.item.temperatura }}</td>
+              <td>{{ row.item.umidade }}</td>
+              <td>
+                <v-btn
+                  class="mx-2"
+                  dark
+                  small
+                  @click="onDelete(row.item.droneId)"
+                >
+                  Excluir
+                </v-btn>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
       </v-container>
     </v-main>
   </v-app>
@@ -80,7 +101,7 @@ export default {
           "Content-Type": "application/json",
         }),
       };
-      fetch("http://localhost:3000/", rOpt)
+      fetch("http://localhost:3000/drone", rOpt)
         .then((response) => response.json())
         .then((r) => {
           console.log(r);
@@ -92,6 +113,7 @@ export default {
               umidade: `${drone.umidade}%`,
               latitude: drone.latitude,
               longitude: drone.longitude,
+              excluir: drone.droneId,
             };
           });
         })
@@ -105,6 +127,7 @@ export default {
         temperatura: this.temperatura,
         umidade: this.umidade,
         rastreamento: this.rastreamento,
+        excluir: this.id,
       };
       const rOpt = {
         method: "POST",
@@ -116,7 +139,7 @@ export default {
           "Content-Type": "application/json",
         }),
       };
-      fetch("http://localhost:3000/", rOpt)
+      fetch("http://localhost:3000/drone", rOpt)
         .then((response) => response.text())
         .then((r) => {
           alert(r);
@@ -127,13 +150,43 @@ export default {
           this.temperatura = 15;
           this.umidade = 30;
           this.rastreamento = true;
+          this.excluir = null;
+        })
+        .catch((error) => console.log("error", error));
+    },
+    onDelete(id) {
+      const raw = {
+        droneId: id
+      }
+      const rOpt = {
+        method: "DELETE",
+        redirect: "follow",
+        body: JSON.stringify(raw),
+        headers: new Headers({
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        }),
+      };
+      fetch("http://localhost:3000/drone", rOpt)
+        .then((response) => response.text())
+        .then((r) => {
+          console.log(r);
+          this.getDrone();
+          this.id = null;
+          this.latitude = null;
+          this.longitude = null;
+          this.temperatura = 15;
+          this.umidade = 30;
+          this.rastreamento = true;
+          this.excluir = null;
         })
         .catch((error) => console.log("error", error));
     },
   },
   mounted() {
     this.getDrone();
-    this.changePositionDrone();
+    // this.changePositionDrone();
   },
   data: () => ({
     id: null,
@@ -142,6 +195,7 @@ export default {
     temperatura: 15,
     umidade: 30,
     rastreamento: true,
+    excluir: null,
     drones: [],
     headers: [
       { text: "ID", value: "droneId" },
@@ -150,6 +204,7 @@ export default {
       { text: "Longitude", value: "longitude" },
       { text: "Temperatura (ºC)", value: "temperatura" },
       { text: "Umidade (%)", value: "umidade" },
+      { text: "Excluir", value: "droneId" },
     ],
   }),
 };

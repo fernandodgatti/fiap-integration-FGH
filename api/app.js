@@ -25,7 +25,7 @@ const remetente = nodemailer.createTransport({
     console.log("umidade " + json.umidade);    
     const emailASerEnviado = {
         from: 'fefohenriller@gmail.com',
-        to: 'fefohenriller@gmail.com',
+        to: 'fernandodgatti@gmail.com',
         subject: 'Enviando Email com Node.js',
         text: `Drone ID: ${json.droneId} - Rastreamento: ${json.rastreamento} - Latitude: ${json.latitude} - Longitude: ${json.longitude} - Temperatura: ${json.temperatura}ºC - Umidade ${json.umidade}% - `
     };
@@ -46,13 +46,27 @@ const remetente = nodemailer.createTransport({
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/drone', (req, res) => {
     res.json(items);
 });
-app.post('/', (req, res) => {
+app.post('/drone', (req, res) => {
     items.push(req.body);
     res.send('Drone Adicionado com Sucesso!');
     queue.sendToQueue("fila1", req.body);
+});
+app.delete('/drone', (req, res) => {
+    items = items.filter(
+        i => (i.droneId !== req.body.droneId)
+    );
+    res.send('Drone removido com sucesso!');
+});
+app.put('/drone', (req, res) => {
+    var id = req.body.droneId;
+    items = items.filter(
+        i => (i.droneId !== id)
+    );
+    items.push(req.body);
+    res.send('Drone alterado com sucesso!');
 });
 app.listen(3000, () => {
     console.log('Controle de Drones');
