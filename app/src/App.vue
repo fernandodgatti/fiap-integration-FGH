@@ -101,7 +101,7 @@ export default {
           "Content-Type": "application/json",
         }),
       };
-      fetch("http://localhost:3000/drone", rOpt)
+      fetch(`${this.apiURL}/drone`, rOpt)
         .then((response) => response.json())
         .then((r) => {
           console.log(r);
@@ -139,7 +139,7 @@ export default {
           "Content-Type": "application/json",
         }),
       };
-      fetch("http://localhost:3000/drone", rOpt)
+      fetch(`${this.apiURL}/drone`, rOpt)
         .then((response) => response.text())
         .then((r) => {
           alert(r);
@@ -168,7 +168,7 @@ export default {
           "Content-Type": "application/json",
         }),
       };
-      fetch("http://localhost:3000/drone", rOpt)
+      fetch(`${this.apiURL}/drone`, rOpt)
         .then((response) => response.text())
         .then((r) => {
           console.log(r);
@@ -189,6 +189,7 @@ export default {
     // this.changePositionDrone();
   },
   data: () => ({
+    apiURL: process.env.VUE_APP_API_URL,
     id: null,
     latitude: null,
     longitude: null,
