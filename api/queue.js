@@ -1,6 +1,7 @@
 //queue.js
+const AMQP_HOST = `amqp://${process.env.AMQP_HOST}`;
 function connect(){
-  return require('amqplib').connect("amqp://localhost")
+  return require('amqplib').connect(AMQP_HOST)
                            .then(conn => conn.createChannel());
 }
  

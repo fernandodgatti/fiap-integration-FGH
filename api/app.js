@@ -4,16 +4,23 @@ const cors = require('cors');
 const queue = require('./queue.js');
 const app = express();
 
+const MAIL_HOST = process.env.MAIL_HOST
+const MAIL_SERVICE = process.env.MAIL_SERVICE
+const MAIL_PORT =  process.env.MAIL_PORT
+const MAIL_AUTH_LOGIN =  process.env.MAIL_AUTH_LOGIN
+const MAIL_AUTH_PASSWORD =  process.env.MAIL_AUTH_PASSWORD
+const API_PORT =  process.env.API_PORT
+const MAIL_CONSUMER = process.env.MAIL_CONSUMER
 
 let items = [];
 const remetente = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    service: 'smtp.gmail.com',    
-    port: 587,
+    host: MAIL_HOST,
+    service: MAIL_SERVICE,    
+    port: MAIL_PORT,
     secure: false,        
     auth:{
-        user: 'fefohenriller@gmail.com',
-        pass: 'fiap2021' 
+        user: MAIL_AUTH_LOGIN,
+        pass: MAIL_AUTH_PASSWORD 
     }
 });   
 
@@ -24,8 +31,8 @@ const remetente = nodemailer.createTransport({
     console.log("Temperatura " + json.temperatura);
     console.log("umidade " + json.umidade);    
     const emailASerEnviado = {
-        from: 'fefohenriller@gmail.com',
-        to: 'fernandodgatti@gmail.com',
+        from: MAIL_AUTH_LOGIN,
+        to: MAIL_CONSUMER,
         subject: 'Enviando Email com Node.js',
         text: `Drone ID: ${json.droneId} - Rastreamento: ${json.rastreamento} - Latitude: ${json.latitude} - Longitude: ${json.longitude} - Temperatura: ${json.temperatura}ºC - Umidade ${json.umidade}% - `
     };
@@ -68,6 +75,6 @@ app.put('/drone', (req, res) => {
     items.push(req.body);
     res.send('Drone alterado com sucesso!');
 });
-app.listen(3000, () => {
+app.listen(API_PORT, () => {
     console.log('Controle de Drones');
 });
