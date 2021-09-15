@@ -1,43 +1,59 @@
-version: '3.8'
+version: "3"
 services:
-  rabbitmq1:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    hostname: rabbitmq
-    ports:
-      - 5672:5672    #amqp
-      - 15672:15672  #http
-    network: 
-      - drones-network
-    volumes:
-     - $PWD/storage/rabbitmq1:/var/lib/rabbitmq
-frontend:
-  image: hmabdala/frontendvuejsdrones:lastest
-  deploy: 
-    replicas: 3
-  ports:
-    - 8080:8080
-  network: 
-    - drones-network
-  environment:
-    VUE_APP_API_URL: https://ec2-3-238-132-160.compute-1.amazonaws.com
-backend:
-  image: hmabdala/frontendvuejsdrones:lastest
-  deploy: 
-    replicas: 3
-  ports:
-    - 8081:8081
-  network: 
-    - drones-network
-  environment: 
-    MAIL_HOST: smtp.gmail.com
-    MAIL_SERVICE: smtp.gmail.com
-    MAIL_PORT: 587
-    MAIL_AUTH_LOGIN: fefohenriller@gmail.com
-    MAIL_AUTH_PASSWORD: fiap2021
-    API_PORT: 8081
-    MAIL_CONSUMER: fernandodgatti@gmail.com
-    AMQP_HOST: https://ec2-3-238-132-160.compute-1.amazonaws.com
+    rabbitmq1:
+        image: rabbitmq:3-management
+        hostname: rabbitmq
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+        networks:
+         - drones-network
+        volumes:
+        - rabbitmq1:/var/lib/rabbitmq
+    frontend:
+        image: hmabdala/frontendvuejsdrones:lastest
+        deploy:
+            replicas: 1
+        ports:
+           - 8080:80
+        networks:
+            - drones-network
+        environment:
+           - "VUE_APP_API_URL=frontend"
+        depends_on:
+         - backend
+    backend:
+        image: hmabdala/backendnodejsdrones:lastest
+        deploy:
+            replicas: 1
+        ports:
+           - 3000:3000
+        networks:
+            - drones-network
+        environment:
+            - MAIL_HOST=smtp.gmail.com
+            - MAIL_SERVICE=smtp.gmail.com
+            - MAIL_PORT=587
+            - MAIL_AUTH_LOGIN=fefohenriller@gmail.com
+            - MAIL_AUTH_PASSWORD=fiap2021
+            - API_PORT=8081
+            - MAIL_CONSUMER=fernandodgatti@gmail.com
+            - AMQP_HOST=rabbitmq1:5672
+        command:
+           - /bin/sh
+            - -c
+            - |
+             echo Waiting for rabbitmq service start...;
+              while ! nc -z rabbitmq1 5672; do
+                echo .
+                sleep 5
+              done
+              echo Connected!;
+              node app.js;
+        depends_on:
+         - rabbitmq1
 networks:
-  drones-network:
-    driver: overlay
+    drones-network:
+        driver: overlay
+volumes:
+ rabbitmq1:
