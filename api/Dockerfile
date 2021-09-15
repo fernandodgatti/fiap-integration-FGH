@@ -1,6 +1,6 @@
 FROM node:lts-alpine as production-stage
 
-WORKDIR /app
+WORKDIR /api
 
 COPY package*.json ./
 RUN npm install
