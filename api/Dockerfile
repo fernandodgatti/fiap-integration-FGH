@@ -1,10 +1,9 @@
 FROM node:lts-alpine as production-stage
-ENV NODE_ENV=production
 
 WORKDIR /api
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 COPY . .
 EXPOSE 3000
