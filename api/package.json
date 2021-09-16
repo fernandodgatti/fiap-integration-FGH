@@ -1,7 +1,7 @@
 {
   "name": "nodeapi",
   "version": "1.0.0",
-  "description": "uma pequena api node",
+  "description": "API nodes para controle de drone",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,7 @@
     "node",
     "api"
   ],
-  "author": "dan vitoriano",
+  "author": "Fefo Henri Iller",
   "license": "MIT",
   "devDependencies": {
     "express": "^4.17.1"
