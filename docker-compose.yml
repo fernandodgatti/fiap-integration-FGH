@@ -36,7 +36,7 @@ services:
             - MAIL_PORT=587
             - MAIL_AUTH_LOGIN=fefohenriller@gmail.com
             - MAIL_AUTH_PASSWORD=fiap2021
-            - API_PORT=8081
+            - API_PORT=3000
             - MAIL_CONSUMER=fernandodgatti@gmail.com
             - AMQP_HOST=rabbitmq1:5672
         command:
