@@ -1,15 +1,5 @@
 version: "3"
 services:
-    rabbitmq1:
-        image: rabbitmq:3-management
-        hostname: rabbitmq
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-        networks:
-         - drones-network
-        volumes:
-        - rabbitmq1:/var/lib/rabbitmq
     frontend:
         image: hmabdala/frontendvuejsdrones:lastest
         deploy:
@@ -39,21 +29,8 @@ services:
             - API_PORT=3000
             - MAIL_CONSUMER=fernandodgatti@gmail.com
             - AMQP_HOST=rabbitmq1:5672
-        command:
-           - /bin/sh
-            - -c
-            - |
-             echo Waiting for rabbitmq service start...;
-              while ! nc -z rabbitmq1 5672; do
-                echo .
-                sleep 5
-              done
-              echo Connected!;
-              node app.js;
         depends_on:
          - rabbitmq1
 networks:
     drones-network:
         driver: overlay
-volumes:
- rabbitmq1:
