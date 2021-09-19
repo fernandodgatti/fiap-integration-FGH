@@ -19,7 +19,7 @@ services:
         networks:
             - drones-network
         environment:
-           - "VUE_APP_API_URL=frontend"
+           - "VUE_APP_API_URL=backend"
         depends_on:
          - backend
     backend:
