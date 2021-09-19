@@ -38,7 +38,7 @@ services:
         networks:
             - drones-network
         environment:
-            - VUE_APP_API_URL=DICK
+            - VUE_APP_API_URL=http://127.0.0.1:3000
         depends_on:
             - backend
 networks:
