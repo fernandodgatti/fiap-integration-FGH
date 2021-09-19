@@ -23,7 +23,7 @@ const API_PORT =  process.env.API_PORT || 3000
 //  const API_PORT =  3000
 // const MAIL_CONSUMER = 'fefohenriller@gmail.com'
 
-// let items = [];
+ let items = [];
 // const remetente = nodemailer.createTransport({
 //     host: MAIL_HOST,
 //     service: MAIL_SERVICE,    
