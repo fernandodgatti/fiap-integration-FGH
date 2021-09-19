@@ -44,3 +44,5 @@ services:
 networks:
     drones-network:
         driver: overlay
+volumes:
+    rabbitmq1:
