@@ -15,7 +15,7 @@ services:
         deploy:
             replicas: 1
         ports:
-            - 3000:3000
+            - 8080:8080
         networks:
             - drones-network
         environment:
@@ -34,7 +34,7 @@ services:
         deploy:
             replicas: 1
         ports:
-            - 8080:80
+            - 4200:80
         networks:
             - drones-network
         environment:
