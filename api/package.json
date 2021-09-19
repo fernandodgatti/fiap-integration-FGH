@@ -1,9 +1,10 @@
 {
   "name": "nodeapi",
   "version": "1.0.0",
-  "description": "API nodes para controle de drone",
+  "description": "API Node - Drones",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "swagger-autogen": "node swagger.js"
   },
@@ -11,14 +12,11 @@
     "node",
     "api"
   ],
-  "author": "Fefo Henri Iller",
+  "author": "Fernando Gatti, Henrique Abdala e Iller Boromello",
   "license": "MIT",
-  "devDependencies": {
-    "express": "^4.17.1"
-  },
   "dependencies": {
+    "express": "^4.17.1",
     "amqplib": "^0.7.0",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "nodemailer": "^6.5.0",
     "swagger-autogen": "^2.11.2",
