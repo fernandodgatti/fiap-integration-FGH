@@ -15,11 +15,12 @@
   "author": "Fernando Gatti, Henrique Abdala e Iller Boromello",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
     "amqplib": "^0.7.0",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "nodemailer": "^6.5.0",
     "swagger-autogen": "^2.11.2",
+    "swagger-ui-dist": "^3.52.2",
     "swagger-ui-express": "^4.1.6"
   }
 }

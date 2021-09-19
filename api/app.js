@@ -1,8 +1,8 @@
 'use strict';
 const express = require('express');
-//const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 const cors = require('cors');
-//const queue = require('./queue.js');
+// const queue = require('./queue.js');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger/swagger_output.json');
@@ -12,7 +12,7 @@ const swaggerFile = require('./swagger/swagger_output.json');
 // const MAIL_PORT =  process.env.MAIL_PORT
 // const MAIL_AUTH_LOGIN =  process.env.MAIL_AUTH_LOGIN
 // const MAIL_AUTH_PASSWORD =  process.env.MAIL_AUTH_PASSWORD
-// const API_PORT =  process.env.API_PORT || 3000
+const API_PORT =  process.env.API_PORT || 3000
 // const MAIL_CONSUMER = process.env.MAIL_CONSUMER
 
 // const MAIL_HOST = 'smtp.gmail.com' 
@@ -20,12 +20,10 @@ const swaggerFile = require('./swagger/swagger_output.json');
 // const MAIL_PORT =  587
 // const MAIL_AUTH_LOGIN =  'fefohenriller@gmail.com'
 // const MAIL_AUTH_PASSWORD =  'fiap2021fhi'
- const API_PORT =  3000
+//  const API_PORT =  3000
 // const MAIL_CONSUMER = 'fefohenriller@gmail.com'
 
-
-
-let items = [];
+// let items = [];
 // const remetente = nodemailer.createTransport({
 //     host: MAIL_HOST,
 //     service: MAIL_SERVICE,    
@@ -81,7 +79,7 @@ app.post('/drone', (req, res) => {
     longitude: req.body.longitude,
   }
   items.push(item);
-  //queue.sendToQueue("fila1", req.body);
+  // queue.sendToQueue("fila1", req.body);
   res.send('Drone Adicionado com Sucesso!');
 });
 

@@ -30,7 +30,7 @@ services:
         depends_on:
             - rabbitmq1
     frontend:
-        image: fedgatti/frontendvuejsdrones:lastest
+        image: fedgatti/frontendvuedrones:lastest
         deploy:
             replicas: 1
         ports:
