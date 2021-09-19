@@ -17,9 +17,9 @@ services:
         ports:
            - 8080:80
         networks:
-            - drones-network
-        environment:
-           - "VUE_APP_API_URL=backend"
+           - drones-network
+        links:
+           - backend
         depends_on:
          - backend
     backend:
