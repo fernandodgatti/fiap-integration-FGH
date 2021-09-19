@@ -11,7 +11,7 @@ services:
         volumes:
             - rabbitmq1:/var/lib/rabbitmq
     backend:
-        image: hmabdala/backendnodejsdrones:lastest
+        image: fedgatti/backendnodejsdrones:lastest
         deploy:
             replicas: 1
         ports:
@@ -30,7 +30,7 @@ services:
         depends_on:
             - rabbitmq1
     frontend:
-        image: hmabdala/frontendvuejsdrones:lastest
+        image: fedgatti/frontendvuejsdrones:lastest
         deploy:
             replicas: 1
         ports:
