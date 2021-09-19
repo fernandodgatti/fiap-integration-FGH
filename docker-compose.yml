@@ -10,20 +10,6 @@ services:
             - drones-network
         volumes:
             - rabbitmq1:/var/lib/rabbitmq
-    frontend:
-        image: hmabdala/frontendvuejsdrones:lastest
-        deploy:
-            replicas: 1
-        ports:
-            - 8080:80
-        networks:
-            - drones-network
-        environment:
-            - "VUE_APP_API_URL=backend"
-        links:
-            - backend
-        depends_on:
-            - backend
     backend:
         image: hmabdala/backendnodejsdrones:lastest
         deploy:
@@ -43,6 +29,18 @@ services:
             - AMQP_HOST=rabbitmq1:5672
         depends_on:
             - rabbitmq1
+    frontend:
+        image: hmabdala/frontendvuejsdrones:lastest
+        deploy:
+            replicas: 1
+        ports:
+            - 8080:80
+        networks:
+            - drones-network
+        environment:
+            VUE_APP_API_URL: backend
+        depends_on:
+            - backend
 networks:
     drones-network:
         driver: overlay
