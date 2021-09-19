@@ -1,5 +1,15 @@
 version: "3"
 services:
+    rabbitmq1:
+        image: rabbitmq:3-management
+        hostname: rabbitmq
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+        networks:
+         - drones-network
+        volumes:
+        - rabbitmq1:/var/lib/rabbitmq
     frontend:
         image: hmabdala/frontendvuejsdrones:lastest
         deploy:
