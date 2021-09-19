@@ -38,7 +38,7 @@ services:
         networks:
             - drones-network
         environment:
-            VUE_APP_API_URL: backend
+            - VUE_APP_API_URL=DICK
         depends_on:
             - backend
 networks:
